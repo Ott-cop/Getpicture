@@ -1,0 +1,13 @@
+[package]
+name = "imxceldownload"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+calamine = "0.24.0"
+futures = "0.3.30"
+image_search = "0.4.3"
+tokio = { version = "1.36.0", features = ["full"] }
+tokio-stream = { version = "0.1.14", features = ["full"] }
