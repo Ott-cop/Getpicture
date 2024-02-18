@@ -4,21 +4,34 @@ use futures::future;
 use image_search::{download, Arguments};
 
 
+
+
 #[tokio::main]
 async fn main() -> Result<(), String> {
     let args: Vec<_> = env::args().collect();
 
+    let icon_success: char = char::from_u32(0x2705).unwrap();
+    let icon_error: char = char::from_u32(0x274C).unwrap();
+
+    if args.len() < 7 {
+        println!("\nUSAGE:\n\n");
+        println!("imxceldownload ARQUIVO.xlsx SHEET_NAME LINHA_INICIAL COLUNA_INICIAL LINHA_FINAL COLUNA_FINAL\n");
+        return Err(format!("{icon_error} Digite corretamente os campos."));
+    }
+
+   
+
     // Open the Xlsx file
     let workbook: Result<Xlsx<_>, XlsxError> = open_workbook(format!("./{}", args[1]));
-
-    if workbook.is_err() { return Err(format!("Não foi possível encontrar o arquivo especificado.")) };
+    println!("\n");
+    if workbook.is_err() { return Err(format!("{icon_error} Não foi possível encontrar o arquivo especificado.")) };
     let mut workbook = workbook.unwrap();
     
 
     // Find the Sheet
     let range = workbook.worksheet_range(&args[2]);
-
-    if range.is_err() { return Err(format!("Não foi possivel encontrar o Sheet ..")); }
+    println!("\n");
+    if range.is_err() { return Err(format!("{icon_error} Não foi possivel encontrar o Sheet ..")); }
     let range = range.unwrap();
 
     // Save the initial coordinates and final coordinates    
@@ -47,6 +60,8 @@ async fn main() -> Result<(), String> {
         })
     }).collect();
     future::join_all(tasks).await;
+
+    println!("{icon_success} Operação concluída com sucesso!");
 
     Ok(())
 }
