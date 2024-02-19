@@ -10,6 +10,7 @@ edition = "2021"
 strip = true
 opt-level = "z"
 panic = "abort"
+debug = false
 lto = true
 codegen-units = 1
 

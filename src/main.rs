@@ -19,6 +19,11 @@ async fn main() -> Result<(), String> {
         return Err(format!("{icon_error} Digite corretamente os campos."));
     }
 
+    if args[3] > args[5] || args[4] > args[6] {
+        println!("\n");
+        return Err(format!("{icon_error} Os valores finais não podem ser menores que seus valores iniciais"))
+    }
+
    
 
     // Open the Xlsx file
@@ -35,14 +40,15 @@ async fn main() -> Result<(), String> {
     let range = range.unwrap();
 
     // Save the initial coordinates and final coordinates    
-    let line = args[3].parse::<u32>().unwrap();
+    let line = args[3].parse::<u32>().unwrap() - 1;
     let col = args[4].parse::<u32>().unwrap() - 1;
-    let final_line = args[5].parse::<u32>().unwrap();
+    let final_line = args[5].parse::<u32>().unwrap() - 1;
     let final_col = args[6].parse::<u32>().unwrap() - 1;
 
     let mut all_products: Vec<String> = vec![]; 
     let values = range.range((line, col), (final_line, final_col));
     
+
     // Add names in vec
     for i in values.used_cells() {
         let value = i.2.to_string();
