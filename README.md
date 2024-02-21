@@ -2,8 +2,8 @@
 
 > <p>Automation to download images using Excel cell names.</p>
 
-<p>Project made 100% in Rust 🦀 to automate image downloads using the name of each cell specified in Excel</p>
-<p>Special thanks to the owners of the <a href="https://crates.io/crates/calamine">Calamine</a> and <a href="https://crates.io/crates/image_search">Image_search</a> libs</p><br>
+<p>Project made 100% in Rust 🦀 to automate image downloads using the name of each cell specified in Excel.</p>
+<p>Special thanks to owners of <a href="https://crates.io/crates/calamine">Calamine</a> and <a href="https://crates.io/crates/image_search">Image_search</a> libs.</p><br>
 
 <h2>Build</h2>
 <p>To compile the script, simply download the repository and run the following command:</p>
@@ -12,9 +12,10 @@
 
 <br>
 <h2>Usage</h2>
-<p>Follow the template for using the script</p>
+<p>Follow the template for using the script:</p>
 
     $ imxceldownload FILE.xlsx SHEET_NAME INITIAL_LINE INITIAL_COLUMN FINAL_LINE FINAL_COLUMN
+
 <p>When using this command it will create a folder called "downloads" and the downloaded images will be in the same folder.</p><br/>
 
 <h2>Example</h2>
