@@ -776,7 +776,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "getpic"
+name = "getpicture"
 version = "0.1.0"
 dependencies = [
  "calamine",

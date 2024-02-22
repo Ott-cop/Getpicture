@@ -5,7 +5,6 @@ use image_search::{download, Arguments};
 
 
 
-
 #[tokio::main]
 async fn main() -> Result<(), String> {
     let args: Vec<_> = env::args().collect();
@@ -15,7 +14,7 @@ async fn main() -> Result<(), String> {
 
     if args.len() < 7 {
         println!("\nUSAGE:\n\n");
-        println!("getpic ARQUIVO.xlsx SHEET_NAME LINHA_INICIAL COLUNA_INICIAL LINHA_FINAL COLUNA_FINAL\n");
+        println!("getpicture ARQUIVO.xlsx SHEET_NAME LINHA_INICIAL COLUNA_INICIAL LINHA_FINAL COLUNA_FINAL\n");
         return Err(format!("{icon_error} Digite corretamente os campos."));
     }
 
@@ -43,14 +42,9 @@ async fn main() -> Result<(), String> {
     if range.is_err() { return Err(format!("{icon_error} Não foi possivel encontrar o Sheet ..")); }
     let range = range.unwrap();
 
-    // Save the initial coordinates and final coordinates    
-    let line = args[3].parse::<u32>().unwrap() - 1;
-    let col = args[4].parse::<u32>().unwrap() - 1;
-    let final_line = args[5].parse::<u32>().unwrap() - 1;
-    let final_col = args[6].parse::<u32>().unwrap() - 1;
-
+    // Get the range
     let mut all_products: Vec<String> = vec![]; 
-    let values = range.range((line, col), (final_line, final_col));
+    let values = range.range((*i_row - 1, *i_column - 1), (*f_row - 1, *f_column - 1));
     
 
     // Add names in vec
@@ -64,11 +58,10 @@ async fn main() -> Result<(), String> {
         let value = value.clone();
         tokio::spawn(async move {
             let image = Arguments::new(value.as_str(), 1).format(image_search::Format::Jpg).directory(Path::new("downloads"));
-            if let Err(err) = download(image).await {
-                println!("Error: {}", err)
-            }
+            let _ = download(image).await;
         })
     }).collect();
+    
     future::join_all(tasks).await;
 
     println!("{icon_success} Operação concluída com sucesso!");
