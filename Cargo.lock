@@ -776,6 +776,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "getpic"
+version = "0.1.0"
+dependencies = [
+ "calamine",
+ "futures",
+ "image_search",
+ "tokio 1.36.0",
+]
+
+[[package]]
 name = "getrandom"
 version = "0.1.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1014,16 +1024,6 @@ dependencies = [
  "infer 0.13.0",
  "serde_json",
  "surf",
-]
-
-[[package]]
-name = "imxceldownload"
-version = "0.1.0"
-dependencies = [
- "calamine",
- "futures",
- "image_search",
- "tokio 1.36.0",
 ]
 
 [[package]]

@@ -15,17 +15,21 @@ async fn main() -> Result<(), String> {
 
     if args.len() < 7 {
         println!("\nUSAGE:\n\n");
-        println!("imxceldownload ARQUIVO.xlsx SHEET_NAME LINHA_INICIAL COLUNA_INICIAL LINHA_FINAL COLUNA_FINAL\n");
+        println!("getpic ARQUIVO.xlsx SHEET_NAME LINHA_INICIAL COLUNA_INICIAL LINHA_FINAL COLUNA_FINAL\n");
         return Err(format!("{icon_error} Digite corretamente os campos."));
     }
 
-    if args[3] > args[5] || args[4] > args[6] {
+    let i_row = &args[3].trim().parse::<u32>().unwrap();
+    let i_column = &args[4].trim().parse::<u32>().unwrap();
+
+    let f_row = &args[5].trim().parse::<u32>().unwrap();
+    let f_column = &args[6].trim().parse::<u32>().unwrap();
+
+    if *i_row > *f_row || *i_column > *f_column {
         println!("\n");
         return Err(format!("{icon_error} Os valores finais não podem ser menores que seus valores iniciais"))
     }
-
    
-
     // Open the Xlsx file
     let workbook: Result<Xlsx<_>, XlsxError> = open_workbook(format!("./{}", args[1]));
     println!("\n");
